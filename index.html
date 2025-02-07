@@ -120,6 +120,21 @@ img{
   outline: none;
 }
 
+@media screen and (min-width: 800px){
+  body{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  img{
+    
+  }
+}
+
+
 
 
 </style>
@@ -156,8 +171,21 @@ img{
     const noButton = document.getElementById("no");
 
     yesButton.addEventListener("click", () => {
-    alert("its a date then , see you sa 14 gandaaa mwaps");
+    const message = document.createElement("h2");
+    message.textContent = "It's a date then! See you sa 14, gandaaa!";
+    message.style.color = "deeppink";
+    message.style.fontSize = "2rem";
+    message.style.textAlign = "center";
+    message.style.marginTop = "20px";
+
+    // Append the message to the div
+    document.querySelector("div").appendChild(message);
+
+    // Hide buttons after clicking YES
+    yesButton.style.display = "none";
+    noButton.style.display = "none";
     });
+
 
     noButton.addEventListener("click", change);
 
