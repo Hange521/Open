@@ -21,6 +21,7 @@ body{
     height: 100vh;
     margin: 0;
 }
+
 div{
     padding-top: 5pc;
     text-align: center;
@@ -136,7 +137,7 @@ img{
     </audio>
     
     <div>
-        <img src="https://static.vecteezy.com/system/resources/previews/023/506/852/non_2x/cute-kawaii-mushroom-chibi-mascot-cartoon-style-vector.jpg">
+        <img id="valentine-img" src="https://gifdb.com/images/high/cute-cartoon-molang-bunny-wink-s74esfxj7vdzjgtn.gif">
         <h1>Will you be my valentine?</h1>
         <button class="pushable" id="yesButton">
             <span class="shadow"></span>
@@ -144,8 +145,8 @@ img{
             <span class="front">
               YES
             </span>
-          </button>
-        <button class="pushable" id="no">
+        </button>
+        <button class="pushable" id="noButton">
             <span class="shadow"></span>
             <span class="edge"></span>
             <span class="front">
@@ -156,8 +157,9 @@ img{
 
     <script>
     const yesButton = document.getElementById("yesButton");
-    const noButton = document.getElementById("no");
+    const noButton = document.getElementById("noButton");
     const audio = document.getElementById("background-music");
+    const valentineImg = document.getElementById("valentine-img");
 
     // Attempt to play music after a short delay
     setTimeout(() => {
@@ -165,6 +167,7 @@ img{
             console.log("Autoplay blocked, user interaction required.");
         });
     }, 1000);
+    
 
     yesButton.addEventListener("click", () => {
         const message = document.createElement("h2");
@@ -174,12 +177,18 @@ img{
         message.style.textAlign = "center";
         message.style.marginTop = "20px";
 
+        valentineImg.src = "https://i.pinimg.com/originals/6e/07/ff/6e07ff8bb6fb04b0e21d3fe50dec88c3.gif";
+
         document.querySelector("div").appendChild(message);
 
         // Hide buttons after clicking YES
         yesButton.style.display = "none";
         noButton.style.display = "none";
+
     });
+
+    let imageChanged = false;  // Flag to track if the image has been changed already
+    let clickCount = 0;
 
     noButton.addEventListener("click", change);
 
@@ -188,6 +197,18 @@ img{
         const j = Math.floor(Math.random() * 300) + 1;
         noButton.style.left = i + "px";
         noButton.style.top = j + "px";
+
+        clickCount++;
+
+        if (clickCount >= 1 && clickCount < 5) {
+            // Change the image only once
+            valentineImg.src = "https://i.pinimg.com/originals/1d/d0/4c/1dd04cdc2b9981ebdfceffa927a7b053.gif";
+            imageChanged = true;  // Set the flag to true after changing the image
+        } else if(clickCount >= 5 && clickCount < 10) {
+            valentineImg.src = "https://media.tenor.com/Ag1n3k48Q-0AAAAM/sad-peachcat.gif";
+        } else if(clickCount >= 10){
+            valentineImg.src = "https://media.tenor.com/lHoflg4CD98AAAAM/aww-peach-cat.gif";
+        }
     }
     </script>
 
