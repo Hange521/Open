@@ -254,13 +254,13 @@
             } else if (noAttempts === 7) {
                 noButton.textContent = "Still no?";
             } else if (noAttempts >= 12) {
-                noButton.textContent = "Please?";
+                noButton.textContent = "Please? di kaba naawa sakin :(";
             }
         }
 
         yesButton.addEventListener("click", () => {
             changeImage(happyImage);
-            message.textContent = "It's a date then! See you! Mwa mwa!";
+            message.textContent = "It's a date then! See you! Mwa mwa! pa kiss ng madami okay";
             yesButton.hidden = true;
             noButton.hidden = true;
         });
