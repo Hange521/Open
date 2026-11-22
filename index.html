@@ -2,220 +2,297 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#d46b9b">
+    <title>Be My Date?</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            color-scheme: light;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100svh;
+            margin: 0;
+            padding:
+                max(16px, env(safe-area-inset-top))
+                max(16px, env(safe-area-inset-right))
+                max(16px, env(safe-area-inset-bottom))
+                max(16px, env(safe-area-inset-left));
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            font-family: "Anton", sans-serif;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
+                url("https://i.pinimg.com/originals/b8/26/1f/b8261f0163fff2cc01c5cb1159d4767b.gif")
+                center / cover no-repeat;
+        }
+
+        .card {
+            width: min(420px, 100%);
+            max-height: calc(100svh - 32px);
+            padding: clamp(16px, 4vw, 24px);
+            text-align: center;
+        }
+
+        #valentine-img {
+            display: block;
+            width: min(180px, 38vh, 45vw);
+            aspect-ratio: 1;
+            margin: 0 auto;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.85);
+            border-radius: 50%;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            transition: opacity 180ms ease, transform 180ms ease;
+        }
+
+        #valentine-img.is-changing {
+            opacity: 0.65;
+            transform: scale(0.96);
+        }
+
+        h1 {
+            margin: clamp(12px, 3vh, 20px) 0;
+            color: white;
+            font-size: clamp(1.65rem, 7vw, 3rem);
+            line-height: 1.15;
+            letter-spacing: 1px;
+            text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.75);
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(10px, 4vw, 16px);
+            min-height: 60px;
+        }
+
+        .pushable {
+            min-width: 110px;
+            min-height: 52px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            background: hsl(248, 53%, 58%);
+            box-shadow: 0 6px 0 hsl(248, 39%, 39%);
+            cursor: pointer;
+            font: inherit;
+            letter-spacing: 1.5px;
+            touch-action: manipulation;
+            user-select: none;
+            transition:
+                transform 150ms ease,
+                filter 150ms ease,
+                box-shadow 150ms ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .pushable:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 hsl(248, 39%, 39%);
+        }
+
+        .pushable:focus-visible {
+            outline: 4px solid white;
+            outline-offset: 4px;
+        }
+
+        #noButton {
+            position: relative;
+            z-index: 20;
+            background: hsl(340, 65%, 58%);
+            box-shadow: 0 6px 0 hsl(340, 65%, 38%);
+            transition:
+                left 220ms ease,
+                top 220ms ease,
+                transform 150ms ease,
+                box-shadow 150ms ease;
+        }
+
+        #noButton:active {
+            box-shadow: 0 1px 0 hsl(340, 65%, 38%);
+        }
+
+        #message {
+            min-height: 1.2em;
+            margin: clamp(16px, 3vh, 24px) 0 0;
+            color: deeppink;
+            font-size: clamp(1.35rem, 5vw, 2.2rem);
+            line-height: 1.2;
+            text-shadow: 1px 2px 3px white;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (hover: hover) {
+            .pushable:hover {
+                filter: brightness(108%);
+                transform: translateY(-2px);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .pushable {
+                min-width: 96px;
+                min-height: 50px;
+            }
+        }
+
+        @media (max-height: 600px) {
+            #valentine-img {
+                width: min(130px, 30vh);
+            }
+
+            h1 {
+                margin: 8px 0;
+                font-size: clamp(1.4rem, 6vw, 2.2rem);
+            }
+
+            #message {
+                margin-top: 10px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-
-html{
-    font-family: 'Anton', sans-serif;
-    background-color: bisque;
-}
-
-body{
-    background-image: url(https://i.pinimg.com/originals/b8/26/1f/b8261f0163fff2cc01c5cb1159d4767b.gif);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 100vh;
-    margin: 0;
-}
-
-div{
-    padding-top: 5pc;
-    text-align: center;
-    align-items: center;
-}
-
-img{
-  border-radius: 100vh;
-  width:30vh;
-}
-
-.pushable {
-  position: relative;
-  background: transparent;
-  padding: 0px;
-  border: none;
-  cursor: pointer;
-  outline-offset: 4px;
-  outline-color: deeppink;
-  transition: filter 250ms;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.shadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: hsl(226, 25%, 69%);
-  border-radius: 8px;
-  filter: blur(2px);
-  will-change: transform;
-  transform: translateY(2px);
-  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-}
-
-.edge {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  border-radius: 8px;
-  background: linear-gradient(
-    to right,
-    hsl(248, 39%, 39%) 0%,
-    hsl(248, 39%, 49%) 8%,
-    hsl(248, 39%, 39%) 92%,
-    hsl(248, 39%, 29%) 100%
-  );
-}
-
-.front {
-  display: block;
-  position: relative;
-  border-radius: 8px;
-  background: hsl(248, 53%, 58%);
-  padding: 16px 32px;
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: 1rem;
-  transform: translateY(-4px);
-  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-}
-
-.pushable:hover {
-  filter: brightness(110%);
-}
-
-.pushable:hover .front {
-  transform: translateY(-6px);
-  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-}
-
-.pushable:active .front {
-  transform: translateY(-2px);
-  transition: transform 34ms;
-}
-
-.pushable:hover .shadow {
-  transform: translateY(4px);
-  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-}
-
-.pushable:active .shadow {
-  transform: translateY(1px);
-  transition: transform 34ms;
-}
-
-.pushable:focus:not(:focus-visible) {
-  outline: none;
-}
-
-@media screen and (min-width: 800px){
-  body{
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100vh;
-    margin: 0;
-  }
-}
-
-</style>
 
 <body>
+    <main class="card">
+        <img
+            id="valentine-img"
+            src="https://i.pinimg.com/originals/6e/07/ff/6e07ff8bb6fb04b0e21d3fe50dec88c3.gif"
+            alt="A cute Valentine animation"
+        >
 
-    <audio id="background-music" loop>
-        <source src="Snaptik.app_7457532786958830855.mp3" type="audio/mpeg">
-    </audio>
-    
-    <div>
-        <img id="valentine-img" src="blob:https://www.facebook.com/0e56f7d7-f497-4956-8c0e-fcebbd5ad658">
         <h1>Will you be my date?</h1>
-        <button class="pushable" id="yesButton">
-            <span class="shadow"></span>
-            <span class="edge"></span>
-            <span class="front">
-              YES
-            </span>
-        </button>
-        <button class="pushable" id="noButton">
-            <span class="shadow"></span>
-            <span class="edge"></span>
-            <span class="front">
-              NO
-            </span>
-        </button>
-    </div>
+
+        <div class="buttons" id="buttons">
+            <button class="pushable" id="yesButton" type="button">YES</button>
+            <button class="pushable" id="noButton" type="button">NO</button>
+        </div>
+
+        <h2 id="message" role="status" aria-live="polite"></h2>
+    </main>
 
     <script>
-    const yesButton = document.getElementById("yesButton");
-    const noButton = document.getElementById("noButton");
-    const audio = document.getElementById("background-music");
-    const valentineImg = document.getElementById("valentine-img");
+        const yesButton = document.getElementById("yesButton");
+        const noButton = document.getElementById("noButton");
+        const valentineImg = document.getElementById("valentine-img");
+        const message = document.getElementById("message");
 
-    // Attempt to play music after a short delay
-    setTimeout(() => {
-        audio.play().catch(error => {
-            console.log("Autoplay blocked, user interaction required.");
-        });
-    }, 1000);
-    
+        const happyImage =
+            "https://i.pinimg.com/originals/6e/07/ff/6e07ff8bb6fb04b0e21d3fe50dec88c3.gif";
 
-    yesButton.addEventListener("click", () => {
-        const message = document.createElement("h2");
-        message.textContent = "It's a date then! See you, gandaaa mo so much mwa mwa!";
-        message.style.color = "deeppink";
-        message.style.fontSize = "2rem";
-        message.style.textAlign = "center";
-        message.style.marginTop = "20px";
+        const sadImages = [
+            "https://i.pinimg.com/originals/1d/d0/4c/1dd04cdc2b9981ebdfceffa927a7b053.gif",
+            "https://i.pinimg.com/originals/0f/1e/4e/0f1e4ef79d6294d3c48fea66c5fdb97f.gif",
+            "https://imgs.search.brave.com/CTrJndBugcHa7isGXHQgIv3PWh1OBzACz7vOUpq7pag/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/Ql9VcHVobFhEZndB/QUFBTS9zby1jdXRl/LmdpZg.gif"
+        
+        ];
 
-        valentineImg.src = "https://i.pinimg.com/originals/6e/07/ff/6e07ff8bb6fb04b0e21d3fe50dec88c3.gif";
+        let noAttempts = 0;
 
-        document.querySelector("div").appendChild(message);
+        function changeImage(source) {
+            valentineImg.classList.add("is-changing");
 
-        // Hide buttons after clicking YES
-        yesButton.style.display = "none";
-        noButton.style.display = "none";
+            const nextImage = new Image();
+            nextImage.src = source;
 
-    });
+            nextImage.onload = () => {
+                valentineImg.src = source;
+                valentineImg.classList.remove("is-changing");
+            };
 
-    let imageChanged = false;  // Flag to track if the image has been changed already
-    let clickCount = 0;
-
-    noButton.addEventListener("click", change);
-
-    function change() {
-        const i = Math.floor(Math.random() * 90) + 1;
-        const j = Math.floor(Math.random() * 300) + 1;
-        noButton.style.left = i + "px";
-        noButton.style.top = j + "px";
-
-        clickCount++;
-
-        if (clickCount >= 1 && clickCount < 5) {
-            // Change the image only once
-            valentineImg.src = "https://i.pinimg.com/originals/1d/d0/4c/1dd04cdc2b9981ebdfceffa927a7b053.gif";
-            imageChanged = true;  // Set the flag to true after changing the image
-        } else if(clickCount >= 5 && clickCount < 10) {
-            valentineImg.src = "https://media.tenor.com/Ag1n3k48Q-0AAAAM/sad-peachcat.gif";
-        } else if(clickCount >= 10){
-            valentineImg.src = "https://media.tenor.com/lHoflg4CD98AAAAM/aww-peach-cat.gif";
-        } else if(clickCount >= 15){
-            valentineImg.src = "https://media.tenor.com/lHoflg4CD98AAAAM/aww-peach-cat.gif";
+            nextImage.onerror = () => {
+                valentineImg.classList.remove("is-changing");
+            };
         }
-    }
-    </script>
 
+        function moveNoButton() {
+            noAttempts++;
+
+            if (noAttempts < 5) {
+                changeImage(sadImages[0]);
+            } else if (noAttempts < 10) {
+                changeImage(sadImages[1]);
+            } else {
+                changeImage(sadImages[2]);
+            }
+
+            const padding = 16;
+            const width = noButton.offsetWidth;
+            const height = noButton.offsetHeight;
+            const maxX = window.innerWidth - width - padding;
+            const maxY = window.innerHeight - height - padding;
+
+            noButton.style.position = "fixed";
+            noButton.style.left = `${padding + Math.random() * Math.max(0, maxX - padding)}px`;
+            noButton.style.top = `${padding + Math.random() * Math.max(0, maxY - padding)}px`;
+
+            if (noAttempts === 3) {
+                noButton.textContent = "Are you sure?";
+            } else if (noAttempts === 7) {
+                noButton.textContent = "Still no?";
+            } else if (noAttempts >= 12) {
+                noButton.textContent = "Please? Maawa kana sakin!";
+
+        }
+
+        yesButton.addEventListener("click", () => {
+            changeImage(happyImage);
+            message.textContent = "It's a date then! See you! Mwa mwa!";
+            yesButton.hidden = true;
+            noButton.hidden = true;
+        });
+
+        noButton.addEventListener("click", moveNoButton);
+
+        noButton.addEventListener("pointerenter", event => {
+            if (event.pointerType === "mouse" && noAttempts > 0) {
+                moveNoButton();
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (noButton.style.position !== "fixed") return;
+
+            const padding = 16;
+            const width = noButton.offsetWidth;
+            const height = noButton.offsetHeight;
+            const left = parseFloat(noButton.style.left) || padding;
+            const top = parseFloat(noButton.style.top) || padding;
+
+            noButton.style.left =
+                `${Math.min(Math.max(padding, left), window.innerWidth - width - padding)}px`;
+            noButton.style.top =
+                `${Math.min(Math.max(padding, top), window.innerHeight - height - padding)}px`;
+        });
+
+        // Preload images for faster mobile transitions.
+        [...sadImages, happyImage].forEach(source => {
+            const image = new Image();
+            image.src = source;
+        });
+    </script>
 </body>
 </html>
-
-
-
